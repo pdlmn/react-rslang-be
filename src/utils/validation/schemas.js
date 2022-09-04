@@ -51,6 +51,16 @@ const schemas = {
         .max(100000),
       optional: optionalScheme
     }),
+  gameStatistics: Joi.object()
+    .options({ abortEarly: false, allowUnknown: false })
+    .keys({
+      userId: Joi.string(),
+      gameName: Joi.string(),
+      learnedWords: Joi.number(),
+      date: Joi.number(),
+      correctAnswers: Joi.number(),
+      incorrectAnswers: Joi.number()
+    }),
   settings: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
     .keys({
