@@ -27,6 +27,10 @@ const GameStatisticSchema = new Schema(
     incorrectAnswers: {
       type: Number,
       required: true
+    },
+    correctAnswersInARow: {
+      type: Number,
+      required: true
     }
   },
   { collection: 'gameStatistic' }
