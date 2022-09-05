@@ -5,7 +5,7 @@ const getAll = async (dateRange, userId) => {
   const { from, to } = dateRange;
   const statistic = await GameStatistics.find({
     userId,
-    date: { $gte: from, $lt: to }
+    date: { $gte: from, $lte: to }
   });
   if (!statistic) {
     throw new NOT_FOUND_ERROR('gameStatistic', `userId: ${userId}`);

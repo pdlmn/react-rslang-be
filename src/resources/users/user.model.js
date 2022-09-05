@@ -16,6 +16,10 @@ const User = new Schema(
       required: true,
       trim: true,
       minlength: 8
+    },
+    signedUp: {
+      type: Number,
+      default: Date.now()
     }
   },
   { collection: 'users' }
