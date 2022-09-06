@@ -60,7 +60,8 @@ const schemas = {
       date: Joi.number(),
       correctAnswers: Joi.number(),
       incorrectAnswers: Joi.number(),
-      correctAnswersInARow: Joi.number()
+      correctAnswersInARow: Joi.number(),
+      newWords: Joi.number()
     }),
   settings: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
