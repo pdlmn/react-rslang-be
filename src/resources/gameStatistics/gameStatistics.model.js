@@ -18,7 +18,7 @@ const GameStatisticSchema = new Schema(
     },
     date: {
       type: Number,
-      default: Date.now()
+      default: () => Date.now()
     },
     correctAnswers: {
       type: Number,
