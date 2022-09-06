@@ -19,7 +19,7 @@ const User = new Schema(
     },
     signedUp: {
       type: Number,
-      default: Date.now()
+      default: () => Date.now()
     }
   },
   { collection: 'users' }
