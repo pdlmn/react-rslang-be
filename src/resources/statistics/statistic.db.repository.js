@@ -1,22 +1,27 @@
-const Statistics = require('./statistic.model');
-const { NOT_FOUND_ERROR } = require('../../errors/appErrors');
+const GameStatistics = require('../gameStatistics/gameStatistics.model');
 
-const get = async userId => {
-  const statistic = await Statistics.findOne({ userId });
-  if (!statistic) {
-    throw new NOT_FOUND_ERROR('statistic', `userId: ${userId}`);
+const get = async (dateRange, userId) => {
+  const { from, to } = dateRange;
+  const aggregatedGameStats = await GameStatistics.aggregate([
+    { $match: { date: { $gte: from, $lte: to } } },
+    {
+      $group: {
+        _id: '$userId',
+        learnedWords: { $sum: '$learnedWords' },
+        newWords: { $sum: '$newWords' }
+      }
+    }
+  ]);
+
+  const userGameStats = aggregatedGameStats.find(gs => gs._id === userId);
+
+  if (!userGameStats) {
+    return { learnedWords: 0, newWords: 0 };
   }
 
-  return statistic;
+  const { learnedWords, newWords } = userGameStats;
+
+  return { learnedWords, newWords };
 };
 
-const upsert = async (userId, statistic) =>
-  Statistics.findOneAndUpdate(
-    { userId },
-    { $set: statistic },
-    { upsert: true, new: true }
-  );
-
-const remove = async userId => Statistics.deleteOne({ userId });
-
-module.exports = { get, upsert, remove };
+module.exports = { get };

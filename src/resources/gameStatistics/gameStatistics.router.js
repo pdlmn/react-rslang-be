@@ -7,7 +7,6 @@ const extractQueryParam = require('../../utils/getQueryNumberParameter');
 const gameStatisticsService = require('./gameStatistics.service');
 
 router.get('/', async (req, res) => {
-  console.log('heh');
   const from = extractQueryParam(req.query.from, 0);
   const to = extractQueryParam(req.query.to, 100000000000000);
   const statistics = await gameStatisticsService.getAll(
